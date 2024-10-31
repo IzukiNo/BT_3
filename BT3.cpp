@@ -34,54 +34,101 @@ void FirstSHH(int arr[],int n){
         }
     }
 
-    if(find=false) cout<<"Khong co so hoan hao trong mang!";
+    if(find==false) cout<<"Khong co so hoan hao trong mang!";
+}
+
+void LastSHH(int arr[],int n){
+    bool find=false;
+    for(int i=n-1;i>0;i--){
+        if(SHH(arr[i])){
+            cout<<"So hoan hao cuoi cung la: "<<arr[i]<<" (nam o so thu "<<i+1<<")";
+            find=true;
+            break;
+        }
+    }
+
+    if(find==false) cout<<"Khong co so hoan hao trong mang!";
 }
 
 void FindX(int arr[],int n,int x){
+    bool find=false;
     for(int i=0;i<n;i++){
         if(arr[i]==x){
-            cout<<"So "<<x<<" nam o so thu "<<i+1;
+            cout<<"So "<<x<<" nam o so thu "<<i+1<<endl;
+            find=true;
+        }
+    }
+
+    if(find==false) cout<<"Khong co so trong mang!";
+}
+
+int FindMax(int arr[],int n){
+    int max=arr[0];
+    for(int i=0;i<n;i++){
+        if(max<arr[i]) max=arr[i];
+    }
+
+    return max;
+}
+
+int FindMin(int arr[],int n){
+    int min=arr[0];
+    for(int i=0;i<n;i++){
+        if(min>arr[i]) min=arr[i];
+    }
+
+    return min;
+}
+
+int CountMax(int arr[],int n){
+    int max=FindMax(arr,n);
+    int dem=0;
+    for(int i=0;i<n;i++){
+        if(max==arr[i]){
+            dem+=1;
+        }
+    }
+    return dem;
+}
+
+void MaxCoord(int arr[],int n){
+    int max=FindMax(arr,n);
+    for(int i=0;i<n;i++){
+        if(arr[i]==max){
+            cout<<i+1<<" ";
         }
     }
 }
 
-void FindMinMax(int arr[],int n){
-    int max=arr[0],min=arr[0];
-    for(int i=0;i<n;i++){
-        if(max<arr[i]) max=arr[i];
-        if(min>arr[i]) min=arr[i];
-    }
-
-    cout<<"Max la: "<<max<<", Min la: "<<min;
-}
-
 int main(){
     int n,yc;
-    system("cls");
     cout<<"Nhap so phan tu: ";
     cin>>n;
     int a[n];
 
     for(int i=0;i<n;i++){
-        a[i]=rand()%100;
+        a[i]=rand()%101;
     }
 
-    cout<<"Day la mang co "<<n<<" phan tu voi cac gia tri ngau nhien!\n";
+    cout<<endl<<"Day la mang co "<<n<<" phan tu voi cac gia tri ngau nhien!\n";
     XuatMang(a,n);
-    cout<<endl<<"Nhap yeu cau de bai (1-6): ";
+    cout<<endl<<endl<<"Nhap yeu cau de bai (1-6): ";
     cin>>yc;
 
     switch(yc){
 
         case 1:
-        system("cls");
-        cout<<"Mang: ";XuatMang(a,n);cout<<endl;
+        cout<<endl;
         FirstSHH(a,n);
         break;
 
+        case 2:
+        cout<<endl;
+        LastSHH(a,n);
+        break;
+
         case 3:
-        system("cls");
-        cout<<"Mang: ";XuatMang(a,n);cout<<endl;
+        cout<<endl;
         int x;
         cout<<"Nhap X: ";
         cin>>x;
@@ -89,11 +136,21 @@ int main(){
         break;
 
         case 4:
-        system("cls");
-        cout<<"Mang: ";XuatMang(a,n);
         cout<<endl;
-        FindMinMax(a,n);
+        cout<<"Max la: "<<FindMax(a,n)<<", Min la: "<<FindMin(a,n);
+        break;
+
+        case 5:
+        cout<<endl;
+        cout<<"So lon nhat la: "<<FindMax(a,n)<<endl;
+        cout<<"Va co "<<CountMax(a,n)<<" phan tu trong mang!";
+        break;
+
+        case 6:
+        cout<<endl;
+        cout<<"So lon nhat la: "<<FindMax(a,n)<<endl;
+        cout<<"Co vi tri o so thu: ";
+        MaxCoord(a,n);
         break;
     }
-    
 }
